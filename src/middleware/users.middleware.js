@@ -15,7 +15,7 @@ const verifyUser = async (ctx, next) =>{
         const error = new Error(errorType.PHONE_IS_ILLEGAL)
         return ctx.app.emit('error', error , ctx)
     }
-    // 判断手机号是否存在
+    // 判断手机号是否存在(已存在)
     // 查询数据
     const result = await service.search(user)
     if(result[0].length > 0){

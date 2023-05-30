@@ -5,7 +5,7 @@ class UserService {
     async search(user){
         try {
             const { phone } = user
-            const statement = `SELECT phone FROM users WHERE phone = ?`
+            const statement = `SELECT phone,password FROM users WHERE phone = ?`
             const result = await connection.execute(statement,[phone])
             return result
         } catch (err) {
