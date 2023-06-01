@@ -3,6 +3,7 @@ const PHONE_IS_EXIIST = 'phone_is_exist'
 const PHONE_IS_NOT_EXIIST = 'phone_is_not_exist'
 const PHONE_IS_ILLEGAL = 'phone_is_illegal'
 const PASSWORD_IS_INCORRECT = 'password_is_incorrect'
+const INVALID_TOKEN = 'invalid_token'
 
 
 module.exports = {
@@ -10,5 +11,6 @@ module.exports = {
     PHONE_IS_EXIIST,
     PHONE_IS_NOT_EXIIST,
     PHONE_IS_ILLEGAL,
-    PASSWORD_IS_INCORRECT
+    PASSWORD_IS_INCORRECT,
+    INVALID_TOKEN
 }

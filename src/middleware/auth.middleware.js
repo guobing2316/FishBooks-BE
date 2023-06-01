@@ -1,4 +1,6 @@
-const { PHONE_OR_PASSWORD_IS_REQUIRED, PHONE_IS_NOT_EXIIST, PASSWORD_IS_INCORRECT } = require('../constants/errorTypes')
+const jwt= require('jsonwebtoken')
+const { PUBLIC_KEY } = require('../app/config')
+const { PHONE_OR_PASSWORD_IS_REQUIRED, PHONE_IS_NOT_EXIIST, PASSWORD_IS_INCORRECT, INVALID_TOKEN } = require('../constants/errorTypes')
 const { search } = require('../service/users.service')
 const md5Encrypt = require('../utils/passwordEncrypt')
 
@@ -24,6 +26,7 @@ const verifyLogin = async (ctx, next) => {
             const error = new Error(PASSWORD_IS_INCORRECT)
             return ctx.app.emit('error', error, ctx)
         }
+        ctx.user = result[0][0]
         await next()
 
     } catch (error) {
@@ -34,6 +37,28 @@ const verifyLogin = async (ctx, next) => {
 
 }
 
+const verifyAuth = async (ctx, next) => {
+    try {
+        const authorization = ctx.header.authorization
+        if(!authorization) {
+            const error = new Error(INVALID_TOKEN)
+            return ctx.app.emit('error', error, ctx)
+        }
+        const token = authorization.replace('Bearer ','')
+        const result = jwt.verify(token, PUBLIC_KEY, {
+            algorithms: ['RS256']
+        })
+        ctx.user = result
+        await next()
+    } catch (e) {
+        const error = new Error(INVALID_TOKEN)
+        return ctx.app.emit('error', error, ctx)
+    }
+    
+
+}
+
 module.exports = {
-    verifyLogin
+    verifyLogin,
+    verifyAuth
 }

@@ -23,6 +23,10 @@ const errorHandle = (error, ctx)=>{
             status = 401
             message = '密码不正确!'
             break
+        case errorTypes.INVALID_TOKEN:
+            status = 401
+            message = '无效token!'
+            break
         default:
             status = 404
             message = 'NOT FOUND'
