@@ -19,13 +19,13 @@ const errorHandle = (error, ctx)=>{
             status = 422
             message = '手机号不合法'
             break
-        case errorTypes.PASSWORD_IS_INCORRECT:
-            status = 401
-            message = '密码不正确!'
-            break
         case errorTypes.INVALID_TOKEN:
             status = 401
             message = '无效token!'
+            break
+        case errorTypes.PASSWORD_IS_INCORRECT:
+            status = 401
+            message = '密码不正确!'
             break
         default:
             status = 404
